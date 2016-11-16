@@ -14,6 +14,7 @@
 		38072A2A1DDA01EB00438D5A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38072A281DDA01EB00438D5A /* LaunchScreen.storyboard */; };
 		38072A351DDA01EB00438D5A /* DeckSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38072A341DDA01EB00438D5A /* DeckSystemTests.swift */; };
 		38072A401DDA01EB00438D5A /* DeckSystemUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38072A3F1DDA01EB00438D5A /* DeckSystemUITests.swift */; };
+		38F3E2141DDCA5CF00B912B6 /* SlideView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38F3E2131DDCA5CF00B912B6 /* SlideView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		38072A3B1DDA01EB00438D5A /* DeckSystemUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DeckSystemUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		38072A3F1DDA01EB00438D5A /* DeckSystemUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckSystemUITests.swift; sourceTree = "<group>"; };
 		38072A411DDA01EB00438D5A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		38F3E2131DDCA5CF00B912B6 /* SlideView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SlideView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 				38072A261DDA01EB00438D5A /* Assets.xcassets */,
 				38072A281DDA01EB00438D5A /* LaunchScreen.storyboard */,
 				38072A2B1DDA01EB00438D5A /* Info.plist */,
+				38F3E2131DDCA5CF00B912B6 /* SlideView.xib */,
 			);
 			path = DeckSystem;
 			sourceTree = "<group>";
@@ -234,6 +237,7 @@
 			files = (
 				38072A2A1DDA01EB00438D5A /* LaunchScreen.storyboard in Resources */,
 				38072A271DDA01EB00438D5A /* Assets.xcassets in Resources */,
+				38F3E2141DDCA5CF00B912B6 /* SlideView.xib in Resources */,
 				38072A251DDA01EB00438D5A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -505,6 +509,7 @@
 				38072A461DDA01EB00438D5A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		38072A471DDA01EB00438D5A /* Build configuration list for PBXNativeTarget "DeckSystemTests" */ = {
 			isa = XCConfigurationList;
@@ -513,6 +518,7 @@
 				38072A491DDA01EB00438D5A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		38072A4A1DDA01EB00438D5A /* Build configuration list for PBXNativeTarget "DeckSystemUITests" */ = {
 			isa = XCConfigurationList;
@@ -521,6 +527,7 @@
 				38072A4C1DDA01EB00438D5A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
