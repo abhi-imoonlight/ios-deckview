@@ -15,6 +15,9 @@
 		38072A351DDA01EB00438D5A /* DeckSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38072A341DDA01EB00438D5A /* DeckSystemTests.swift */; };
 		38072A401DDA01EB00438D5A /* DeckSystemUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38072A3F1DDA01EB00438D5A /* DeckSystemUITests.swift */; };
 		38F3E2141DDCA5CF00B912B6 /* SlideView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38F3E2131DDCA5CF00B912B6 /* SlideView.xib */; };
+		38F3E2161DDCA60B00B912B6 /* SlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F3E2151DDCA60B00B912B6 /* SlideView.swift */; };
+		38F3E2191DDCB5E100B912B6 /* DeckView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38F3E2181DDCB5E100B912B6 /* DeckView.xib */; };
+		38F3E21B1DDCB61200B912B6 /* DeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F3E21A1DDCB61200B912B6 /* DeckView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +52,10 @@
 		38072A3F1DDA01EB00438D5A /* DeckSystemUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckSystemUITests.swift; sourceTree = "<group>"; };
 		38072A411DDA01EB00438D5A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		38F3E2131DDCA5CF00B912B6 /* SlideView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SlideView.xib; sourceTree = "<group>"; };
+		38F3E2151DDCA60B00B912B6 /* SlideView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideView.swift; sourceTree = "<group>"; };
+		38F3E2171DDCAA7A00B912B6 /* fontawesome-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "fontawesome-webfont.ttf"; path = "../../../Downloads/font-awesome-4.7.0 2/fonts/fontawesome-webfont.ttf"; sourceTree = "<group>"; };
+		38F3E2181DDCB5E100B912B6 /* DeckView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DeckView.xib; sourceTree = "<group>"; };
+		38F3E21A1DDCB61200B912B6 /* DeckView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeckView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +106,7 @@
 		38072A1E1DDA01EB00438D5A /* DeckSystem */ = {
 			isa = PBXGroup;
 			children = (
+				38F3E2171DDCAA7A00B912B6 /* fontawesome-webfont.ttf */,
 				38072A1F1DDA01EB00438D5A /* AppDelegate.swift */,
 				38072A211DDA01EB00438D5A /* ViewController.swift */,
 				38072A231DDA01EB00438D5A /* Main.storyboard */,
@@ -106,6 +114,9 @@
 				38072A281DDA01EB00438D5A /* LaunchScreen.storyboard */,
 				38072A2B1DDA01EB00438D5A /* Info.plist */,
 				38F3E2131DDCA5CF00B912B6 /* SlideView.xib */,
+				38F3E2181DDCB5E100B912B6 /* DeckView.xib */,
+				38F3E2151DDCA60B00B912B6 /* SlideView.swift */,
+				38F3E21A1DDCB61200B912B6 /* DeckView.swift */,
 			);
 			path = DeckSystem;
 			sourceTree = "<group>";
@@ -235,6 +246,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38F3E2191DDCB5E100B912B6 /* DeckView.xib in Resources */,
 				38072A2A1DDA01EB00438D5A /* LaunchScreen.storyboard in Resources */,
 				38072A271DDA01EB00438D5A /* Assets.xcassets in Resources */,
 				38F3E2141DDCA5CF00B912B6 /* SlideView.xib in Resources */,
@@ -263,8 +275,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38F3E2161DDCA60B00B912B6 /* SlideView.swift in Sources */,
 				38072A221DDA01EB00438D5A /* ViewController.swift in Sources */,
 				38072A201DDA01EB00438D5A /* AppDelegate.swift in Sources */,
+				38F3E21B1DDCB61200B912B6 /* DeckView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
