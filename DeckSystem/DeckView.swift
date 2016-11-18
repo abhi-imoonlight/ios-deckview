@@ -21,6 +21,8 @@ class DeckView: UIView {
         }
     }
 
+    var swipeThreshold = CGFloat(0.5)
+
     var lastTranslation: CGFloat = 0
     var bounceThreshold: CGFloat = 0
 
@@ -30,35 +32,116 @@ class DeckView: UIView {
     var dataSource: DeckViewDataSource?
     var delegate: DeckViewDelegate?
 
+    var data = [UIColor.red, UIColor.blue, UIColor.yellow, UIColor.green]
+    
+//    var data = [UIColor.red, UIColor.blue]
+
+
     func bind(to frame: CGRect) {
         self.frame = frame
+        dataSource = self
+        var upperBound = dataSource?.numberOfSlidesIn(self) ?? 0
 
-        for _ in 0..<_numberOfVisibleSlides {
+        for var index in 0..<upperBound {
+            if index >= _numberOfVisibleSlides {
+                break
+            }
             let viewHolder = UIView(frame: CGRect(x: 0, y: 0,
                                                   width: frame.width,
                                                   height: frame.height - 50))
-            let view = UIView(frame: CGRect(x: 0, y: 0,
-                                           width: viewHolder.frame.width,
-                                           height: viewHolder.frame.height))
-            view.backgroundColor = UIColor.blue
+            guard let view = dataSource?.slideFor(self, at: index) else {
+                continue
+            }
+
             viewHolders.append(viewHolder)
             views.append(view)
             viewHolder.addSubview(view)
             viewHolder.layer.masksToBounds = false
             viewHolder.layer.cornerRadius = 5.0
             viewHolder.clipsToBounds = true
-            addSubview(viewHolder)
 
         }
+
+        upperBound = viewHolders.count
+
+        for var index in 0..<upperBound {
+            addSubview(viewHolders[upperBound - 1 - index])
+        }
+
 
         restoreStack(with: 0.5)
 
 
 
-//        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(onPan(_:)))
-//        self.addGestureRecognizer(panGesture)
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(onPan(_:)))
+        self.addGestureRecognizer(panGesture)
 //
 //        restoreStack(with: 0.5)
+
+    }
+
+    func revertStack() {
+        if let viewHolder = viewHolders.first {
+            UIView.animate(withDuration: 0.2, animations: {
+                viewHolder.frame = CGRect(x: 0, y: 0,
+                                          width: viewHolder.frame.width,
+                                          height: viewHolder.frame.height)
+            })
+        }
+    }
+
+    func onPan(_ panGesture: UIPanGestureRecognizer) {
+
+        switch panGesture.state {
+        case .began:
+            lastTranslation = 0
+        case .changed:
+            let tX = panGesture.translation(in: self).x
+            let dX = tX - lastTranslation
+            if let viewHolder = viewHolders.first {
+                moveTopSlide(by: dX)
+            }
+            lastTranslation = tX
+        default:
+            if let viewHolder = viewHolders.first {
+                let xPosition = viewHolder.frame.origin.x
+                print("VH X: \(xPosition), VAL: \(swipeThreshold * viewHolder.frame.width)")
+                if (xPosition >= 0 && xPosition < swipeThreshold * viewHolder.frame.width) ||
+                    (xPosition < 0 && xPosition > -(swipeThreshold * viewHolder.frame.width)) {
+                    revertStack()
+                } else {
+                    handleRecycle()
+                }}
+        }
+    }
+
+    func moveTopSlide(by x: CGFloat) {
+        if let topViewHolder = viewHolders.first {
+            topViewHolder.frame = CGRect(x: topViewHolder.frame.origin.x + x,
+                                         y: topViewHolder.frame.origin.y,
+                                         width: topViewHolder.frame.width,
+                                         height: topViewHolder.frame.height)
+
+            let multiplier = x / frame.width
+            var scaleFactor: CGFloat = 1
+            var translationDelta: CGFloat = 0
+            for viewHolder in viewHolders {
+//                var transform = viewHolder.layer.transform
+                var transform = CATransform3DMakeScale(1 + multiplier * scaleFactor,
+                                               1 + multiplier * scaleFactor,
+                                               1)
+                transform = CATransform3DTranslate(transform, 0,
+                                                   viewHolder.frame.origin.x +
+                                                    (multiplier * translationDelta),
+                                                   0)
+                viewHolder.layer.transform = transform
+                scaleFactor = scaleFactor * ( 1 / _scaleFactor)
+                translationDelta = translationDelta + self._translationDelta
+            }
+        }
+    }
+
+    func handleRecycle() {
 
     }
 
@@ -67,7 +150,8 @@ class DeckView: UIView {
             var scaleFactor: CGFloat = 1.0
             var translateFactor: CGFloat = 0.0
             for var viewHolder in self.viewHolders {
-                var transform = CATransform3DMakeScale(scaleFactor, scaleFactor, 1)
+                var transform = viewHolder.layer.transform
+                transform = CATransform3DScale(transform, scaleFactor, scaleFactor, 1)
                 transform = CATransform3DTranslate(transform, 0, translateFactor, 0)
 
                 viewHolder.layer.transform = transform
@@ -204,5 +288,18 @@ protocol DeckViewDelegate {
     func slideWillSwipeLeftIn(_ deckview: DeckView, at: Int) -> Bool
     func slideWillSwipeRightIn(_ deckView: DeckView, at: Int) -> Bool
     func slideSwipeWillCancelIn(_ deckView: DeckView, at: Int)
+}
+
+extension DeckView: DeckViewDataSource {
+
+    func numberOfSlidesIn(_ deckView: DeckView) -> Int {
+        return data.count
+    }
+
+    func slideFor(_ deckView: DeckView, at: Int) -> UIView {
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: frame.width, height: frame.height - 50))
+        view.backgroundColor = data[at]
+        return view
+    }
 }
 
