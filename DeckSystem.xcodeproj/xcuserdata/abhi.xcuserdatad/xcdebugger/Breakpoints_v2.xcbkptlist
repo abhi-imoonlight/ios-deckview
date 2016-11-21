@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DeckSystem/DeckView.swift"
-            timestampString = "501448944.254096"
+            timestampString = "501450421.600765"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "408"
-            endingLineNumber = "408">
+            startingLineNumber = "387"
+            endingLineNumber = "387">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -24,11 +24,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DeckSystem/DeckView.swift"
-            timestampString = "501448944.254096"
+            timestampString = "501450421.600765"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "407"
-            endingLineNumber = "407">
+            startingLineNumber = "386"
+            endingLineNumber = "386">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -38,13 +38,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DeckSystem/DeckView.swift"
-            timestampString = "501448944.254096"
+            timestampString = "501450421.600765"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "209"
-            endingLineNumber = "209"
-            landmarkName = "DeckView"
-            landmarkType = "3">
+            startingLineNumber = "205"
+            endingLineNumber = "205"
+            landmarkName = "restoreStack(with:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -54,11 +54,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DeckSystem/DeckView.swift"
-            timestampString = "501448944.254096"
+            timestampString = "501449731.058067"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "52"
-            endingLineNumber = "52"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
             landmarkName = "bind(to:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -70,11 +70,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DeckSystem/DeckView.swift"
-            timestampString = "501448944.254096"
+            timestampString = "501449731.058067"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "53"
-            endingLineNumber = "53"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
             landmarkName = "bind(to:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -86,11 +86,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DeckSystem/DeckView.swift"
-            timestampString = "501448944.254096"
+            timestampString = "501449731.058067"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "104"
-            endingLineNumber = "104"
+            startingLineNumber = "99"
+            endingLineNumber = "99"
             landmarkName = "onPan(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -102,11 +102,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DeckSystem/DeckView.swift"
-            timestampString = "501448944.254096"
+            timestampString = "501449731.058067"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "105"
-            endingLineNumber = "105"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
             landmarkName = "onPan(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -118,11 +118,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DeckSystem/DeckView.swift"
-            timestampString = "501448944.254096"
+            timestampString = "501449731.058067"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "106"
-            endingLineNumber = "106"
+            startingLineNumber = "101"
+            endingLineNumber = "101"
             landmarkName = "onPan(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -134,11 +134,27 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DeckSystem/DeckView.swift"
-            timestampString = "501448944.254096"
+            timestampString = "501450421.600765"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "157"
-            endingLineNumber = "157"
+            startingLineNumber = "153"
+            endingLineNumber = "153"
+            landmarkName = "moveTopSlide(by:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "DeckSystem/DeckView.swift"
+            timestampString = "501450421.600765"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "182"
+            endingLineNumber = "182"
             landmarkName = "handleRecycle()"
             landmarkType = "7">
          </BreakpointContent>
@@ -150,12 +166,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DeckSystem/DeckView.swift"
-            timestampString = "501448944.254096"
+            timestampString = "501450421.600765"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "186"
-            endingLineNumber = "186"
-            landmarkName = "updateSlides()"
+            startingLineNumber = "183"
+            endingLineNumber = "183"
+            landmarkName = "handleRecycle()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -166,13 +182,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DeckSystem/DeckView.swift"
-            timestampString = "501448944.254096"
+            timestampString = "501450421.600765"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "187"
-            endingLineNumber = "187"
-            landmarkName = "updateSlides()"
-            landmarkType = "7">
+            startingLineNumber = "184"
+            endingLineNumber = "184"
+            landmarkName = "DeckView"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -182,7 +198,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DeckSystem/DeckView.swift"
-            timestampString = "501448944.254096"
+            timestampString = "501450421.600765"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "188"
@@ -198,11 +214,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DeckSystem/DeckView.swift"
-            timestampString = "501448944.254096"
+            timestampString = "501450421.600765"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "192"
-            endingLineNumber = "192"
+            startingLineNumber = "187"
+            endingLineNumber = "187"
             landmarkName = "updateSlides()"
             landmarkType = "7">
          </BreakpointContent>
@@ -214,27 +230,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DeckSystem/DeckView.swift"
-            timestampString = "501448944.254096"
+            timestampString = "501450421.600765"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "191"
-            endingLineNumber = "191"
-            landmarkName = "updateSlides()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "DeckSystem/DeckView.swift"
-            timestampString = "501448944.254096"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "194"
-            endingLineNumber = "194"
+            startingLineNumber = "190"
+            endingLineNumber = "190"
             landmarkName = "updateSlides()"
             landmarkType = "7">
          </BreakpointContent>
