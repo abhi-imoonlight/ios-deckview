@@ -75,8 +75,6 @@ class DeckView: UIView {
 
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(onPan(_:)))
         self.addGestureRecognizer(panGesture)
-//
-//        restoreStack(with: 0.5)
 
     }
 
@@ -108,7 +106,7 @@ class DeckView: UIView {
                 print("VH X: \(xPosition), VAL: \(swipeThreshold * viewHolder.frame.width)")
                 if (xPosition >= 0 && xPosition < swipeThreshold * viewHolder.frame.width) ||
                     (xPosition < 0 && xPosition > -(swipeThreshold * viewHolder.frame.width)) {
-                    revertStack()
+                    restoreStack(with: 0.2)
                 } else {
                     handleRecycle()
                 }}
@@ -123,25 +121,57 @@ class DeckView: UIView {
                                          height: topViewHolder.frame.height)
 
             let multiplier = x / frame.width
-            var scaleFactor: CGFloat = 1
-            var translationDelta: CGFloat = 0
-            for viewHolder in viewHolders {
-//                var transform = viewHolder.layer.transform
-                var transform = CATransform3DMakeScale(1 + multiplier * scaleFactor,
-                                               1 + multiplier * scaleFactor,
+            var scaleFactor = multiplier / _scaleFactor
+            var translationDelta = multiplier * _translationDelta
+            for index in 0..<viewHolders.count {
+
+                if index == 0 {
+                    continue
+                }
+
+
+                let viewHolder = viewHolders[index]
+
+                print("SCALE FACTOR: \(scaleFactor + 1)")
+
+                var transform = viewHolder.layer.transform
+                transform = CATransform3DScale(transform,
+                                               1 + scaleFactor,
+                                               1 + scaleFactor,
                                                1)
-                transform = CATransform3DTranslate(transform, 0,
-                                                   viewHolder.frame.origin.x +
-                                                    (multiplier * translationDelta),
+                transform = CATransform3DTranslate(transform,
+                                                   0,
+                                                   translationDelta,
                                                    0)
                 viewHolder.layer.transform = transform
-                scaleFactor = scaleFactor * ( 1 / _scaleFactor)
-                translationDelta = translationDelta + self._translationDelta
             }
         }
     }
 
     func handleRecycle() {
+
+        if let viewHolder = viewHolders.first {
+            var newX = CGFloat(viewHolder.frame.width)
+            if viewHolder.frame.origin.x < 0 {
+                newX = CGFloat(-viewHolder.frame.width)
+            }
+            UIView.animate(withDuration: 0.2, animations: {
+                viewHolder.frame = CGRect(x: newX,
+                                          y: 0,
+                                          width: viewHolder.frame.width,
+                                          height: viewHolder.frame.height)
+            }, completion: { complete in
+                if complete {
+                    if viewHolder.frame.origin.x == viewHolder.frame.width {
+                        self.moveTopSlide(by: viewHolder.frame.width)
+                    } else {
+                        self.moveTopSlide(by: -viewHolder.frame.width)
+                    }
+                }
+            })
+        }
+
+
 
     }
 
@@ -149,9 +179,15 @@ class DeckView: UIView {
         UIView.animate(withDuration: duration) {
             var scaleFactor: CGFloat = 1.0
             var translateFactor: CGFloat = 0.0
-            for var viewHolder in self.viewHolders {
-                var transform = viewHolder.layer.transform
-                transform = CATransform3DScale(transform, scaleFactor, scaleFactor, 1)
+            for var index in 0..<self.viewHolders.count {
+                let viewHolder = self.viewHolders[index]
+                if index == 0 {
+                    viewHolder.frame = CGRect(x: 0, y: 0,
+                                              width: viewHolder.frame.width,
+                                              height: viewHolder.frame.height)
+                }
+//                var transform = viewHolder.layer.transform
+                var transform = CATransform3DMakeScale(scaleFactor, scaleFactor, 1)
                 transform = CATransform3DTranslate(transform, 0, translateFactor, 0)
 
                 viewHolder.layer.transform = transform
@@ -165,114 +201,6 @@ class DeckView: UIView {
         return views.last ?? UIView()
     }
 
-//    func restoreStack(with duration: Double = 0.0) {
-//        UIView.animate(withDuration: duration, animations: {
-//
-//            var midTransform = CATransform3DMakeScale(self.midScale, self.midScale, 1.0)
-//            midTransform = CATransform3DTranslate(midTransform, 0,
-//                                                  self.midTranslation,
-//                                                  0)
-//            var bottomTransform = CATransform3DMakeScale(self.bottomScale, self.bottomScale, 1.0)
-//            bottomTransform = CATransform3DTranslate(bottomTransform, 0,
-//                                                     self.bottomTranslation,
-//                                                     0)
-//            self.topView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: 199)
-//            self.midView.layer.transform = midTransform
-//            self.bottomView.layer.transform = bottomTransform
-//        })
-//
-//    }
-//
-//    func resetStack() {
-//        var midTransform = CATransform3DMakeScale(self.midScale, self.midScale, 1.0)
-//        midTransform = CATransform3DTranslate(midTransform, 0,
-//                                              self.midTranslation,
-//                                              0)
-//        var bottomTransform = CATransform3DMakeScale(self.bottomScale, self.bottomScale, 1.0)
-//        bottomTransform = CATransform3DTranslate(bottomTransform, 0,
-//                                                 self.bottomTranslation,
-//                                                 0)
-//        self.topView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: 199)
-//        self.midView.layer.transform = midTransform
-//        self.bottomView.layer.transform = bottomTransform
-//
-//    }
-//
-//    func onPan(_ panGesture: UIPanGestureRecognizer) {
-//        switch panGesture.state {
-//        case .changed:
-//            let dx = panGesture.translation(in: self).x
-//            let dTranslation = CGFloat(dx) - lastTranslation
-//            let newX = topView.frame.origin.x + dTranslation
-//            lastTranslation = CGFloat(dx)
-//            print("dx: \(dx)")
-//
-//            topViewMoved(to: newX)
-//
-//        default:
-//            lastTranslation = 0.0
-//
-//            print("ViewX: \(topView.frame.origin), DeckX: \(self.frame.width * margin)")
-//
-//            if (topView.frame.origin.x < 0 && topView.frame.origin.x >= -(self.frame.width * margin)) ||
-//                (topView.frame.origin.x >= 0 && topView.frame.origin.x <= (self.frame.width * margin)) {
-//                restoreStack()
-//            } else {
-//                UIView.animate(withDuration: 0.2, animations: {
-//                    if self.topView.frame.origin.x >= 0 {
-//                        self.topViewMoved(to: self.frame.width)
-//                    } else {
-//                        self.topViewMoved(to: -self.frame.width)
-//                    }
-//
-//                }, completion: {complete in
-//                    if complete {
-//                        self.handleRecycle()
-//
-//                    }
-//                })
-//            }
-//        }
-//    }
-
-//    func handleRecycle() {
-//
-//        let bg = topView.backgroundColor
-//        topView.backgroundColor = midView.backgroundColor
-//        midView.backgroundColor = bottomView.backgroundColor
-//        bottomView.backgroundColor = bg
-//        self.resetStack()
-//    }
-//
-//    func topViewMoved(to x: CGFloat) {
-//        topView.frame = CGRect(x: x,
-//                               y: 0,
-//                               width: topView.frame.width,
-//                               height: topView.frame.height)
-//
-//        let multiplier = abs(topView.frame.origin.x / frame.width)
-//        print("Multi: \(multiplier)")
-//
-//        var midTransform = CATransform3DMakeScale(midScale + (multiplier * (1 - midScale)),
-//                                                  midScale + (multiplier * (1 - midScale)),
-//                                                  1)
-//        midTransform = CATransform3DTranslate(midTransform,
-//                                              0,
-//                                              midTranslation - multiplier * (midTranslation),
-//                                              0)
-//        midView.layer.transform = midTransform
-//
-//        var bottomTransform = CATransform3DMakeScale(bottomScale + (multiplier * (1 - midScale)),
-//                                                     bottomScale + (multiplier * (1 - midScale)),
-//                                                     1)
-//        bottomTransform = CATransform3DTranslate(bottomTransform,
-//                                                 0,
-//                                                 bottomTranslation - multiplier * (midTranslation),
-//                                                 0)
-//        midView.layer.transform = midTransform
-//        bottomView.layer.transform = bottomTransform
-//
-//    }
 
 }
 
