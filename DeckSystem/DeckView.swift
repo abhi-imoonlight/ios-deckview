@@ -33,18 +33,13 @@ class DeckView: UIView {
     var dataSource: DeckViewDataSource?
     var delegate: DeckViewDelegate?
 
-//    var data = [UIColor.red, UIColor.blue, UIColor.yellow, UIColor.green]
 
     var position = 0
-    var data = [UIColor.red, UIColor.blue, UIColor.black]
-//    var data = [UIColor.red, UIColor.blue]
-//    var data = [UIColor.red]
 
 
 
     func bind(to frame: CGRect) {
         self.frame = frame
-        dataSource = self
         var upperBound = dataSource?.numberOfSlidesIn(self) ?? 0
 
         for var index in 0..<upperBound {
@@ -107,17 +102,18 @@ class DeckView: UIView {
             lastTranslation = tX
         default:
             if let viewHolder = viewHolders.first {
+                if let dataSource = dataSource {
+                    if dataSource.numberOfSlidesIn(self) <= 1 {
+                        restoreStack(with: 0.2)
+                        return
+                    }
+                }
                 let xPosition = viewHolder.frame.origin.x
                 print("VH X: \(xPosition), VAL: \(swipeThreshold * viewHolder.frame.width)")
                 if (xPosition >= 0 && xPosition < swipeThreshold * viewHolder.frame.width) ||
                     (xPosition < 0 && xPosition > -(swipeThreshold * viewHolder.frame.width)) {
                     restoreStack(with: 0.2)
                 } else {
-                    if let dataSource = dataSource {
-                        if dataSource.numberOfSlidesIn(self) <= 1 {
-                            restoreStack(with: 0.2)
-                        }
-                    }
                     handleRecycle()
                 }}
         }
@@ -185,13 +181,13 @@ class DeckView: UIView {
     func updateSlides() {
         if let dataSource = dataSource {
             if dataSource.numberOfSlidesIn(self) >= 1 {
-                views[0] = dataSource.slideFor(self, at: position)
+                views[0] = dataSource.slideFor(self, at: position % dataSource.numberOfSlidesIn(self))
             }
             if dataSource.numberOfSlidesIn(self) >= 2 {
-                views[1] = dataSource.slideFor(self, at: position + 1)
+                views[1] = dataSource.slideFor(self, at: (position + 1) % dataSource.numberOfSlidesIn(self))
             }
             if dataSource.numberOfSlidesIn(self) >= 3 {
-                views[2] = dataSource.slideFor(self, at: position + 2)
+                views[2] = dataSource.slideFor(self, at: (position + 2) % dataSource.numberOfSlidesIn(self))
             }
 
 
@@ -227,10 +223,6 @@ class DeckView: UIView {
         }
     }
 
-    func deQueueSlideFor(_ deckView: DeckView, at position: Int) -> UIView {
-        return views.last ?? UIView()
-    }
-
 
 }
 
@@ -243,22 +235,9 @@ protocol DeckViewDataSource {
 
 protocol DeckViewDelegate {
     
-    func slideWillSwipeLeftIn(_ deckview: DeckView, at: Int) -> Bool
-    func slideWillSwipeRightIn(_ deckView: DeckView, at: Int) -> Bool
-    func slideSwipeWillCancelIn(_ deckView: DeckView, at: Int)
+    func slideWillSwipeLeftIn(_ deckview: DeckView, at position: Int) -> Bool
+    func slideWillSwipeRightIn(_ deckView: DeckView, at position: Int) -> Bool
+    func slideSwipeWillCancelIn(_ deckView: DeckView, at position: Int)
 }
 
-extension DeckView: DeckViewDataSource {
-
-    func numberOfSlidesIn(_ deckView: DeckView) -> Int {
-        return data.count
-    }
-
-    func slideFor(_ deckView: DeckView, at: Int) -> UIView {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: frame.width, height: frame.height - 50))
-        let newAt = at % numberOfSlidesIn(self)
-        view.backgroundColor = data[newAt]
-        return view
-    }
-}
 
