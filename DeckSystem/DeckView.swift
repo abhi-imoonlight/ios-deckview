@@ -11,8 +11,9 @@ import UIKit
 class DeckView: UIView {
 
     private var _numberOfVisibleSlides = 3
-    private var _scaleFactor: CGFloat = 0.95
-    private var _translationDelta: CGFloat = 10.0
+
+    var widthFactor: CGFloat = 10
+    var translateFactor: CGFloat = 5
 
     var numberOfVisibleSlides: Int = 3 {
         willSet(newNumberOfSlides) {
@@ -32,9 +33,13 @@ class DeckView: UIView {
     var dataSource: DeckViewDataSource?
     var delegate: DeckViewDelegate?
 
-    var data = [UIColor.red, UIColor.blue, UIColor.yellow, UIColor.green]
-    
+//    var data = [UIColor.red, UIColor.blue, UIColor.yellow, UIColor.green]
+
+    var position = 0
+    var data = [UIColor.red, UIColor.blue, UIColor.black]
 //    var data = [UIColor.red, UIColor.blue]
+//    var data = [UIColor.red]
+
 
 
     func bind(to frame: CGRect) {
@@ -108,6 +113,11 @@ class DeckView: UIView {
                     (xPosition < 0 && xPosition > -(swipeThreshold * viewHolder.frame.width)) {
                     restoreStack(with: 0.2)
                 } else {
+                    if let dataSource = dataSource {
+                        if dataSource.numberOfSlidesIn(self) <= 1 {
+                            restoreStack(with: 0.2)
+                        }
+                    }
                     handleRecycle()
                 }}
         }
@@ -120,9 +130,8 @@ class DeckView: UIView {
                                          width: topViewHolder.frame.width,
                                          height: topViewHolder.frame.height)
 
-            let multiplier = x / frame.width
-            var scaleFactor = multiplier / _scaleFactor
-            var translationDelta = multiplier * _translationDelta
+            let multiplier = abs(topViewHolder.frame.origin.x / topViewHolder.frame.width)
+
             for index in 0..<viewHolders.count {
 
                 if index == 0 {
@@ -132,18 +141,13 @@ class DeckView: UIView {
 
                 let viewHolder = viewHolders[index]
 
-                print("SCALE FACTOR: \(scaleFactor + 1)")
+                print("MULTIPLIER FACTOR: \(multiplier)")
 
-                var transform = viewHolder.layer.transform
-                transform = CATransform3DScale(transform,
-                                               1 + scaleFactor,
-                                               1 + scaleFactor,
-                                               1)
-                transform = CATransform3DTranslate(transform,
-                                                   0,
-                                                   translationDelta,
-                                                   0)
-                viewHolder.layer.transform = transform
+                viewHolder.frame = CGRect(x: (CGFloat(index) * self.translateFactor) - (CGFloat(multiplier) * self.translateFactor),
+                       y: (CGFloat(index) * 3 * self.translateFactor) - (CGFloat(multiplier) * 3 * self.translateFactor),
+                       width: topViewHolder.frame.width - (CGFloat(index) * self.widthFactor) + (CGFloat(multiplier) * self.widthFactor),
+                       height: topViewHolder.frame.height - (CGFloat(index) * self.widthFactor) + (CGFloat(multiplier) * self.widthFactor))
+
             }
         }
     }
@@ -162,11 +166,14 @@ class DeckView: UIView {
                                           height: viewHolder.frame.height)
             }, completion: { complete in
                 if complete {
-                    if viewHolder.frame.origin.x == viewHolder.frame.width {
-                        self.moveTopSlide(by: viewHolder.frame.width)
-                    } else {
-                        self.moveTopSlide(by: -viewHolder.frame.width)
+                    self.position += 1
+                    if let dataSource = self.dataSource {
+                        if self.position >= dataSource.numberOfSlidesIn(self) {
+                            self.position = 0
+                        }
                     }
+                    self.updateSlides()
+                    self.restoreStack()
                 }
             })
         }
@@ -175,24 +182,47 @@ class DeckView: UIView {
 
     }
 
+    func updateSlides() {
+        if let dataSource = dataSource {
+            if dataSource.numberOfSlidesIn(self) >= 1 {
+                views[0] = dataSource.slideFor(self, at: position)
+            }
+            if dataSource.numberOfSlidesIn(self) >= 2 {
+                views[1] = dataSource.slideFor(self, at: position + 1)
+            }
+            if dataSource.numberOfSlidesIn(self) >= 3 {
+                views[2] = dataSource.slideFor(self, at: position + 2)
+            }
+
+
+        }
+
+    }
+
     func restoreStack(with duration: Double) {
+
         UIView.animate(withDuration: duration) {
-            var scaleFactor: CGFloat = 1.0
-            var translateFactor: CGFloat = 0.0
+
+            self.restoreStack()
+        }
+    }
+
+    func restoreStack() {
+        if let topViewHolder = self.viewHolders.first {
             for var index in 0..<self.viewHolders.count {
                 let viewHolder = self.viewHolders[index]
+                self.views[index].removeFromSuperview()
+                self.viewHolders[index].addSubview(self.views[index])
                 if index == 0 {
                     viewHolder.frame = CGRect(x: 0, y: 0,
                                               width: viewHolder.frame.width,
                                               height: viewHolder.frame.height)
                 }
-//                var transform = viewHolder.layer.transform
-                var transform = CATransform3DMakeScale(scaleFactor, scaleFactor, 1)
-                transform = CATransform3DTranslate(transform, 0, translateFactor, 0)
 
-                viewHolder.layer.transform = transform
-                scaleFactor *= self._scaleFactor
-                translateFactor += self._translationDelta
+                viewHolder.frame = CGRect(x: topViewHolder.frame.origin.x + (CGFloat(index) * self.translateFactor),
+                                          y: topViewHolder.frame.origin.y + (CGFloat(index) * 3 * self.translateFactor),
+                                          width: topViewHolder.frame.width - (CGFloat(index) * self.widthFactor),
+                                          height: topViewHolder.frame.height - (CGFloat(index) * self.widthFactor))
             }
         }
     }
@@ -226,7 +256,8 @@ extension DeckView: DeckViewDataSource {
 
     func slideFor(_ deckView: DeckView, at: Int) -> UIView {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: frame.width, height: frame.height - 50))
-        view.backgroundColor = data[at]
+        let newAt = at % numberOfSlidesIn(self)
+        view.backgroundColor = data[newAt]
         return view
     }
 }
