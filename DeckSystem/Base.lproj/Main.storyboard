@@ -22,23 +22,46 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6yu-Rt-I2P">
-                                <rect key="frame" x="16" y="164.5" width="243" height="239"/>
-                                <color key="backgroundColor" red="1" green="0.76862745099999996" blue="0.47843137250000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="239" id="C3B-qo-Bgu"/>
-                                </constraints>
-                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="300" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NTd-pi-M0c">
+                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="iT4-4s-loN" customClass="DeckCell" customModule="DeckSystem" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="320" height="300"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iT4-4s-loN" id="kb6-Ku-Zos">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="300"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UHs-mO-M8C" userLabel="Deck">
+                                                    <rect key="frame" x="24" y="24" width="272" height="252"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="UHs-mO-M8C" firstAttribute="leading" secondItem="kb6-Ku-Zos" secondAttribute="leadingMargin" constant="16" id="GfC-H5-04L"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="UHs-mO-M8C" secondAttribute="trailing" constant="16" id="SrT-8O-eJf"/>
+                                                <constraint firstItem="UHs-mO-M8C" firstAttribute="top" secondItem="kb6-Ku-Zos" secondAttribute="topMargin" constant="16" id="YU1-yM-C6H"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="UHs-mO-M8C" secondAttribute="bottom" constant="16" id="uZl-8j-ueW"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="deck" destination="UHs-mO-M8C" id="0KN-tZ-EMt"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="6yu-Rt-I2P" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="NHf-bc-yBz"/>
-                            <constraint firstItem="6yu-Rt-I2P" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="Rnm-Mm-zAS"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="6yu-Rt-I2P" secondAttribute="trailing" constant="45" id="hhB-kX-h2t"/>
+                            <constraint firstAttribute="trailing" secondItem="NTd-pi-M0c" secondAttribute="trailing" id="Frh-GC-c6u"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="NTd-pi-M0c" secondAttribute="bottom" id="Gzv-pG-bIs"/>
+                            <constraint firstItem="NTd-pi-M0c" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="NI0-qR-ldT"/>
+                            <constraint firstItem="NTd-pi-M0c" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Qda-j3-OKr"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="deck" destination="6yu-Rt-I2P" id="wCH-A7-ci4"/>
+                        <outlet property="tableView" destination="NTd-pi-M0c" id="88j-gP-gA7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

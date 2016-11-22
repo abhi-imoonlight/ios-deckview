@@ -42,6 +42,10 @@ class DeckView: UIView {
         self.frame = frame
         var upperBound = dataSource?.numberOfSlidesIn(self) ?? 0
 
+        if views.count > 0 {
+            return
+        }
+
         for var index in 0..<upperBound {
             if index >= _numberOfVisibleSlides {
                 break
@@ -174,23 +178,18 @@ class DeckView: UIView {
             })
         }
 
+    }
 
-
+    func reloadData() {
+        updateSlides()
+        restoreStack()
     }
 
     func updateSlides() {
         if let dataSource = dataSource {
-            if dataSource.numberOfSlidesIn(self) >= 1 {
-                views[0] = dataSource.slideFor(self, at: position % dataSource.numberOfSlidesIn(self))
+            for var index in 0..<viewHolders.count {
+                views[index] = dataSource.slideFor(self, at:(position + index) % dataSource.numberOfSlidesIn(self))
             }
-            if dataSource.numberOfSlidesIn(self) >= 2 {
-                views[1] = dataSource.slideFor(self, at: (position + 1) % dataSource.numberOfSlidesIn(self))
-            }
-            if dataSource.numberOfSlidesIn(self) >= 3 {
-                views[2] = dataSource.slideFor(self, at: (position + 2) % dataSource.numberOfSlidesIn(self))
-            }
-
-
         }
 
     }
